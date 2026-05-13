@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\Route;
 
+// Controllers
+use App\Http\Controllers\LoginValidateController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,6 +15,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+/* Route::get('/', function () {
     return view('login');
+}); */
+
+Route::controller(LoginValidateController::class)->group(function () {
+    Route::get('/', 'login');
+    Route::post('/login/auth', 'validation')->name('loginAuth');
 });
