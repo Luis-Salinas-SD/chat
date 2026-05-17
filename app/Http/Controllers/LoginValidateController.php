@@ -24,23 +24,17 @@ class LoginValidateController extends Controller
         ]);
 
 
-        //dd(Auth::attempt($credential));
-
         // Intentar autenticar
         if (Auth::attempt($credential)) {
-            dd('Autenticación exitosa');
-
+            dd(Auth::user());
             // Regenera la sesión por seguridad
             $request->session()->regenerate();
-
 
             return redirect()->route('dashboard')
                 ->with('success', 'Inicio de sesión exitoso');
         }
 
-        dd('Autenticación fallida');
-
-
-        return redirect()->back()->with('success', 'Inicio de sesión exitoso');
+        return redirect()->back()
+            ->with('error', 'Credenciales incorrectas');
     }
 }
